@@ -20,26 +20,39 @@ function getComputerChoice() {
     }
 }
 
+/**
+ * Plays a round of Jan-Ken-Pon.
+ * If tied, the function will call itself until a winner is determined.
+ * @param {Hand} playerSelection - The player's hand
+ * @param {Hand} computerSelection - The computer's hand
+ * @returns {int} - 0 if player wins, 1 if computer wins
+ */
 function playRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
         playRound(playerSelection, computerSelection);
     } else if (playerSelection === Hand.ROCK) {
         if (computerSelection === Hand.PAPER) {
-            return "You lose! " + PAPER_BEATS_ROCK;
+            console.log("You lose! " + PAPER_BEATS_ROCK);
+            return 1;
         } else {
-            return "You win! " + ROCK_BEATS_SCISSORS;
+            console.log("You win! " + ROCK_BEATS_SCISSORS);
+            return 0;
         }
     } else if (playerSelection === Hand.PAPER) {
         if (computerSelection === Hand.ROCK) {
-            return "You win! " + PAPER_BEATS_ROCK;
+            console.log("You win! " + PAPER_BEATS_ROCK);
+            return 0;
         } else {
-            return "You lose! " + SCISSORS_BEATS_PAPER;
+            console.log("You lose! " + SCISSORS_BEATS_PAPER);
+            return 1;
         }
     } else if (playerSelection === Hand.SCISSORS) {
         if (computerSelection === Hand.ROCK) {
-            return "You lose! " + ROCK_BEATS_SCISSORS;
+            console.log("You lose! " + ROCK_BEATS_SCISSORS);
+            return 1;
         } else {
-            return "You win! " + SCISSORS_BEATS_PAPER;
+            console.log("You win! " + SCISSORS_BEATS_PAPER);
+            return 0;
         }
     }
 }
@@ -61,4 +74,3 @@ function getPlayerSelection() {
 
 const computerSelection = getComputerChoice();
 const playerSelection = getPlayerSelection();
-console.log(playRound(playerSelection, computerSelection));
