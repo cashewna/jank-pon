@@ -97,4 +97,22 @@ function game() {
     }
 }
 
-// game();
+const hand = document.querySelector(".hand");
+
+hand.onclick = (event) => {
+    let target = event.target;
+    
+    switch (target.id) {
+        case 'rock':
+            playRound(Hand.ROCK, getComputerChoice());
+            break;
+        
+        case 'paper':
+            playRound(Hand.PAPER, getComputerChoice());
+            break;
+        
+        case 'scissors':
+            playRound(Hand.SCISSORS, getComputerChoice());
+            break;
+    }
+};
