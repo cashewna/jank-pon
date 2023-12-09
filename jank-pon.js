@@ -97,4 +97,4 @@ function game() {
     }
 }
 
-game();
+// game();
