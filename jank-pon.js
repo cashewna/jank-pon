@@ -109,11 +109,27 @@ function game() {
 const hand = document.querySelector(".hand");
 let playerScore = 0;
 let computerScore = 0;
+let tieScore = 0;
 
 hand.onclick = (event) => {
     let target = event.target;
     let result = 0;
 
+    const results = document.querySelector('.results');
+    const player = document.querySelector('.score .player');
+    const computer = document.querySelector('.score .computer');
+    const ties = document.querySelector('.score .ties');
+    if (playerScore == 5 || computerScore == 5) {
+        while (results.firstChild) {
+            results.removeChild(results.firstChild);
+        }
+        playerScore = 0;
+        computerScore = 0;
+        tieScore = 0;
+        player.innerText = playerScore;
+        computer.innerText = computerScore;
+        ties.innerText = tieScore;
+    }
     switch (target.id) {
         case 'rock':
             result += playRound(Hand.ROCK, getComputerChoice());
@@ -127,10 +143,7 @@ hand.onclick = (event) => {
             result += playRound(Hand.SCISSORS, getComputerChoice());
             break;
     }
-    
-    const player = document.querySelector('.score .player');
-    const computer = document.querySelector('.score .computer');
-    const ties = document.querySelector('.score .ties');
+
     if (result === 0) {
         playerScore++;
         player.innerText = playerScore;
@@ -138,23 +151,13 @@ hand.onclick = (event) => {
         computerScore++;
         computer.innerText = computerScore;
     } else {
-        ties.innerText = parseInt(ties.innerText) + 1;
+        tieScore++;
+        ties.innerText = tieScore;
     }
 
-    const results = document.querySelector('.results');
     if (playerScore == 5) {
         alert("You win! " + playerScore + " - " + computerScore);
-        playerScore = 0;
-        computerScore = 0;
-        while (results.firstChild) {
-            results.removeChild(results.firstChild);
-        }
     } else if (computerScore == 5) {
         alert("You lose! " + playerScore + " - " + computerScore);
-        playerScore = 0;
-        computerScore = 0;
-        while (results.firstChild) {
-            results.removeChild(results.firstChild);
-        }
     }
 };
