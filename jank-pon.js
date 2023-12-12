@@ -29,31 +29,40 @@ function getComputerChoice() {
  * @returns {int} - 0 if player wins, 1 if computer wins, and 2 if tied
  */
 function playRound(playerSelection, computerSelection) {
+    const results = document.querySelector('.results');
+    const result = document.createElement('p');
     if (playerSelection === computerSelection) {
-        console.log("Tie! Play again.");
+        result.innerText = "Tie! Play again.";
+        results.appendChild(result);
         return 2;
     } else if (playerSelection === Hand.ROCK) {
         if (computerSelection === Hand.PAPER) {
-            console.log("You lose! " + PAPER_BEATS_ROCK);
+            result.innerText = "You lose! " + PAPER_BEATS_ROCK;
+            results.appendChild(result);
             return 1;
         } else {
-            console.log("You win! " + ROCK_BEATS_SCISSORS);
+            result.innerText = "You win! " + ROCK_BEATS_SCISSORS;
+            results.appendChild(result);
             return 0;
         }
     } else if (playerSelection === Hand.PAPER) {
         if (computerSelection === Hand.ROCK) {
-            console.log("You win! " + PAPER_BEATS_ROCK);
+            result.innerText = "You win! " + PAPER_BEATS_ROCK;
+            results.appendChild(result);
             return 0;
         } else {
-            console.log("You lose! " + SCISSORS_BEATS_PAPER);
+            result.innerText = "You lose! " + SCISSORS_BEATS_PAPER;
+            results.appendChild(result);
             return 1;
         }
     } else if (playerSelection === Hand.SCISSORS) {
         if (computerSelection === Hand.ROCK) {
-            console.log("You lose! " + ROCK_BEATS_SCISSORS);
+            result.innerText = "You lose! " + ROCK_BEATS_SCISSORS;
+            results.appendChild(result);
             return 1;
         } else {
-            console.log("You win! " + SCISSORS_BEATS_PAPER);
+            result.innerText = "You win! " + SCISSORS_BEATS_PAPER;
+            results.appendChild(result);
             return 0;
         }
     }
@@ -98,21 +107,54 @@ function game() {
 }
 
 const hand = document.querySelector(".hand");
+let playerScore = 0;
+let computerScore = 0;
 
 hand.onclick = (event) => {
     let target = event.target;
-    
+    let result = 0;
+
     switch (target.id) {
         case 'rock':
-            playRound(Hand.ROCK, getComputerChoice());
+            result += playRound(Hand.ROCK, getComputerChoice());
             break;
-        
+
         case 'paper':
-            playRound(Hand.PAPER, getComputerChoice());
+            result += playRound(Hand.PAPER, getComputerChoice());
             break;
-        
+
         case 'scissors':
-            playRound(Hand.SCISSORS, getComputerChoice());
+            result += playRound(Hand.SCISSORS, getComputerChoice());
             break;
+    }
+    
+    const player = document.querySelector('.score .player');
+    const computer = document.querySelector('.score .computer');
+    const ties = document.querySelector('.score .ties');
+    if (result === 0) {
+        playerScore++;
+        player.innerText = playerScore;
+    } else if (result === 1) {
+        computerScore++;
+        computer.innerText = computerScore;
+    } else {
+        ties.innerText = parseInt(ties.innerText) + 1;
+    }
+
+    const results = document.querySelector('.results');
+    if (playerScore == 5) {
+        alert("You win! " + playerScore + " - " + computerScore);
+        playerScore = 0;
+        computerScore = 0;
+        while (results.firstChild) {
+            results.removeChild(results.firstChild);
+        }
+    } else if (computerScore == 5) {
+        alert("You lose! " + playerScore + " - " + computerScore);
+        playerScore = 0;
+        computerScore = 0;
+        while (results.firstChild) {
+            results.removeChild(results.firstChild);
+        }
     }
 };
