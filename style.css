@@ -1,0 +1,22 @@
+.hand {
+    display: flex;
+    justify-content: center;
+    margin-top: 5rem;
+    gap: 2rem;
+}
+.hand > button {
+    padding: 50px;
+    cursor: pointer;
+    background-color: antiquewhite;
+}
+
+.score {
+    display: flex;
+    justify-content: space-around;
+}
+
+.results {
+    border-top: 2px solid;
+    padding-top: 0.5rem;
+    padding-left: 1rem;
+}
